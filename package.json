@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/TryReact/password/issues"
   },
-  "homepage": "https://github.com/TryReact/password#readme"
+  "homepage": "https://github.com/TryReact/password#readme",
+  "dependencies": {
+    "password-validator": "^2.1.2",
+    "react": "^15.4.2"
+  }
 }
