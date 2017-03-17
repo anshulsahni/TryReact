@@ -13,15 +13,19 @@ class Password extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  assignPasswordInputRef(ref) {
+    this.password = ref;
+  }
+
   handleChange() {
-    const password = this.refs.password.value;
-    this.props.onChange(validation.validate(password), password);
+    const password = this.password.value;
+    this.props.onChange(this.validation.validate(password), password);
   }
 
   render() {
     return (
       <input
-        ref="password"
+        ref={this.assignPasswordInputRef}
         value={this.props.value}
         onChange={this.handleChange}
       />
@@ -34,10 +38,15 @@ Password.propTypes = {
    * value of password text
    */
   value: PropTypes.string,
+  /**
+   * method called everytime value is changed in text
+   */
+  onChange: PropTypes.func,
 };
 
 Password.defaultProps = {
   value: '',
+  onChange: () => {},
 };
 
 export default Password;

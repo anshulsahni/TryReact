@@ -41,7 +41,7 @@ const checkAndApplyLowercase = (validation, lowercase) => {
 /*
   To check and apply if password should have digits
  */
-const checkAndApplyDigits = (validation, digits) {
+const checkAndApplyDigits = (validation, digits) => {
   if (digits) {
     validation
       .has()
@@ -52,7 +52,7 @@ const checkAndApplyDigits = (validation, digits) {
 /*
   To check and apply if password should be refrained from having spaces
  */
-const checkAndApplyNoSpaces = (validation, noSpaces) {
+const checkAndApplyNoSpaces = (validation, noSpaces) => {
   if (noSpaces) {
     validation
       .not()
