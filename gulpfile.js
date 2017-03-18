@@ -25,6 +25,43 @@ function handleError (err) {
 }
 
 /**
+ * returns a method which will be called by different tasks to bundle js files
+ * @param  {string} dir    destination directory
+ * @param  {string} file   name of bundled file
+ * @param  {Boolean} update whether to put watch on updation or not
+ * @return {function}        method which will be called by gulp tasks
+ */
+const bundleJs = function(options) {
+  return function() {
+
+    const bundler = watchify(browserify(options.srcDir + '/' + options.srcFile, {
+      extensions: config.BUNDLING_EXTENSIONS
+    }));
+
+    const compile = function() {
+      bundler
+      .transform('babelify', {
+        extensions: config.BUNDLING_EXTENSIONS
+      })
+      .bundle()
+      .on('error', handleError)
+      .pipe(source(options.destFile))
+      .pipe(gulp.dest(options.destDir));
+    };
+
+    if (options.update) {
+      bundler.on('update', function() {
+        compile();
+        gutil.log('Re bundling javascript files...');
+      });
+    }
+
+    gutil.log('Bundling javascript files...');
+    return compile();
+  };
+}
+
+/**
  * task to check for lint errors
  */
 gulp.task('lint', function() {
@@ -47,31 +84,12 @@ gulp.task('lint', function() {
 /**
  * task to bundle all the javscript files from scripts folder
  */
-gulp.task('scripts', function() {
-  var bundler = watchify(browserify(config.ROOT_DIR + '/' + config.INDEX_FILE, {
-    extensions: config.BUNDLING_EXTENSIONS
-  }));
-
-  var compile = function() {
-    bundler
-      .transform('babelify', {
-        extensions: config.BUNDLING_EXTENSIONS
-      })
-      .bundle()
-      .on('error', handleError)
-      .pipe(source(config.MAIN_JS_FILE))
-      .pipe(gulp.dest(config.DIST_DIR));
-  };
-
-  bundler.on('update', function() {
-    compile();
-    gutil.log('Re bundling javascript files...');
-  });
-
-  gutil.log('Bundling javascript files...');
-  return compile();
-
-});
+gulp.task('scripts:development', bundleJs({
+  srcDir: config.EXAMPLE_DIR + '/scripts',
+  srcFile: 'Root.jsx',
+  destDir: config.EXAMPLE_DIR + '/build',
+  destFile: 'main.js',
+}));
 
 /**
  * build task
