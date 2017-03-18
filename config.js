@@ -40,4 +40,10 @@ module.exports = {
    * @type {String}
    */
   DIST_DIR: 'dist',
+
+  /**
+   * directory having example files
+   * @type {String}
+   */
+  EXAMPLE_DIR: 'example',
 };
