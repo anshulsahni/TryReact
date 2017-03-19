@@ -2,7 +2,7 @@
   "name": "try-react-password",
   "version": "0.0.1",
   "description": "A password input with certain validations provided by the developer via props",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -43,10 +43,14 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",
     "react-dom": "^15.4.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }

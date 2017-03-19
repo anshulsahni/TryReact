@@ -12,6 +12,7 @@ const buffer = require('vinyl-buffer');
 const browserSync = require('browser-sync');
 const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
 
 /**
  * function to handle errors from any task
@@ -63,29 +64,35 @@ const bundleJs = function(options) {
 
     const bundler = watchify(browserify(options.srcDir + '/' + options.srcFile, {
       extensions: bundlingExtensions,
-      debug: true,
+      debug: options.development,
     }));
 
     const compile = function() {
-      bundler
+      const bundle = bundler
       .transform('babelify', {
         extensions: bundlingExtensions,
-        sourceMaps: true,
+        sourceMaps: options.development,
       })
       .bundle()
       .pipe(source(options.destFile))
       .pipe(buffer())
       .pipe(sourcemaps.init({
-        loadMaps: true,
+        loadMaps: options.development,
       }))
-      .pipe(sourcemaps.write('./'))
       .on('error', handleError)
       .pipe(gulp.dest(options.destDir));
+
+      if (options.development) {
+        bundle.pipe(sourcemaps.write('./'));
+      } else {
+        bundle.pipe(uglify());
+      }
     };
 
-    if (options.update) {
+    if (options.development) {
       bundler.on('update', function() {
         compile();
+        console.log('ansh');
         gutil.log('Re bundling javascript files...');
       });
     }
@@ -105,14 +112,25 @@ gulp.task('lint:failOnError', checkLint(true));
 gulp.task('lint:noFailOnError', checkLint(false));
 
 /**
- * task to bundle all the javscript files from scripts folder
+ * tasks to bundle all the javscript files
  */
+
+// from example scripts directory - development mode
 gulp.task('scripts:development', bundleJs({
   srcDir: 'example/scripts',
   srcFile: 'Root.jsx',
   destDir: 'example/build',
   destFile: 'main.js',
-  update: true,
+  development: true,
+}));
+
+// from src directory to distribution directory - release/production mode
+gulp.task('scripts:release', bundleJs({
+  srcDir: 'src',
+  srcFile: 'index.js',
+  destDir: 'dist',
+  destFile: 'index.js',
+  development: false,
 }));
 
 /**
@@ -143,6 +161,13 @@ gulp.task('default', ['build', 'browserSync'], function() {
   //action to be taken after all the tasks are completed
   gutil.log('Gulp initiating your project');
 
+});
+
+/**
+ * release task for gulp
+ */
+gulp.task('release', ['lint:failOnError', 'scripts:release'], function() {
+  gutil.log('Project is released');
 });
 
 /* eslint-enable */
