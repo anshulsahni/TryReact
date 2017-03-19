@@ -6,7 +6,12 @@ import Password from '../../src';
 
 const Root = () => (
   <div>
-    <Password />
+    <Password
+      uppercase
+      lowercase
+      digits
+      onChange={(valid, password) => { console.log(valid, password)}}
+    />
   </div>
 );
 
