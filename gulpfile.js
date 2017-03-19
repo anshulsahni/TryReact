@@ -14,16 +14,41 @@ const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
 
 /**
- * importing config variables
- */
-var config = require('./config');
-
-/**
  * function to handle errors from any task
  */
 function handleError (err) {
   gutil.log(err.toString());
   process.exit(-1);
+}
+
+/**
+ * extensions which will be bundled by babelify and browserify
+ */
+const bundlingExtensions = [
+  '.jsx',
+  '.js',
+];
+
+/**
+ * function that does the actual check for lint errors
+ * @param  {Boolean} failOnErr [whether to fail the task if there is any lint error]
+ * @return {Function}           [does all the check for lint for linting gulp tasks]
+ */
+const checkLint = function(failOnErr) {
+  return function() {
+    const linting = gulp.src('src/**')
+    .pipe(eslint())
+    // printing the eslint output to console
+    .pipe(eslint.format())
+    // passing erros to handleError if any
+    .on('error', gutil.log);
+
+    if (failOnErr) {
+      //returning with exit status 1 if there is any lint errors
+      linting.pipe(eslint.failAfterError())
+    }
+    return linting;
+  }
 }
 
 /**
@@ -37,14 +62,14 @@ const bundleJs = function(options) {
   return function() {
 
     const bundler = watchify(browserify(options.srcDir + '/' + options.srcFile, {
-      extensions: config.BUNDLING_EXTENSIONS,
+      extensions: bundlingExtensions,
       debug: true,
     }));
 
     const compile = function() {
       bundler
       .transform('babelify', {
-        extensions: config.BUNDLING_EXTENSIONS,
+        extensions: bundlingExtensions,
         sourceMaps: true,
       })
       .bundle()
@@ -71,32 +96,21 @@ const bundleJs = function(options) {
 }
 
 /**
- * task to check for lint errors
+ * tasks to check for lint errors
  */
-gulp.task('lint', function() {
+// this task fails on lint error
+gulp.task('lint:failOnError', checkLint(true));
 
-  //perform es lint check only if CHECK_LINT_ERRORS flag is true
-  if (config.CHECK_LINT_ERRORS) {
-    return gulp.src(config.ROOT_DIR + '/**')
-      .pipe(eslint())
-      // printing the eslint output to console
-      .pipe(eslint.format())
-      //returning with exit status 1 if there is any lint errors
-      .pipe(eslint.failAfterError())
-      // passing erros to handleError if any
-      .on('error', handleError);
-  }
-  return true;
-
-});
+// this task does not fail on any lint error
+gulp.task('lint:noFailOnError', checkLint(false));
 
 /**
  * task to bundle all the javscript files from scripts folder
  */
 gulp.task('scripts:development', bundleJs({
-  srcDir: config.EXAMPLE_DIR + '/scripts',
+  srcDir: 'example/scripts',
   srcFile: 'Root.jsx',
-  destDir: config.EXAMPLE_DIR + '/build',
+  destDir: 'example/build',
   destFile: 'main.js',
   update: true,
 }));
@@ -104,7 +118,7 @@ gulp.task('scripts:development', bundleJs({
 /**
  * build task
  */
-gulp.task('build', ['lint', 'scripts:development'], function() {
+gulp.task('build', ['lint:noFailOnError', 'scripts:development'], function() {
   gutil.log('Build complete...');
 });
 
@@ -114,11 +128,11 @@ gulp.task('build', ['lint', 'scripts:development'], function() {
 gulp.task('browserSync', ['build'], function() {
   browserSync({
     server: {
-      baseDir: config.APP_ROOT_DIR
+      baseDir: 'example'
     },
     ghostMode: false
   });
-  gulp.watch(config.APP_ROOT_DIR + config.MAIN_JS_FILE, browserSync.reload);
+  gulp.watch('example/build/main.js', browserSync.reload);
 });
 
 /**
