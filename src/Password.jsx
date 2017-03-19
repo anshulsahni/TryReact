@@ -1,4 +1,4 @@
-
+/* eslint-disable react/no-unused-prop-types */
 import React, { Component, PropTypes } from 'react';
 import PasswordValidation from 'password-validator';
 
@@ -16,7 +16,7 @@ class Password extends Component {
       'min',
       'max',
       'digits',
-      'noSpaces'
+      'noSpaces',
     ]));
 
     // binding unbound methods
@@ -65,12 +65,12 @@ Password.propTypes = {
   * specifies the maximum number characters in password
   * no max chars in password, unless specified
   */
-  max: PropTypes.number,
+  max: PropTypes.number, // eslint-disable-line react/require-default-props
   /**
    * specifies the minimum number characters in password
    * no min chars in password, unless specified
    */
-  min: PropTypes.number,
+  min: PropTypes.number,  // eslint-disable-line react/require-default-props
   /**
    * value of password text
    */
