@@ -1,3 +1,4 @@
+
 import React, { Component, PropTypes } from 'react';
 import PasswordValidation from 'password-validator';
 
@@ -20,6 +21,7 @@ class Password extends Component {
 
     // binding unbound methods
     this.handleChange = this.handleChange.bind(this);
+    this.assignPasswordInputRef = this.assignPasswordInputRef.bind(this);
   }
 
   assignPasswordInputRef(ref) {
@@ -35,7 +37,7 @@ class Password extends Component {
     return (
       <input
         ref={this.assignPasswordInputRef}
-        value={this.props.value}
+        defaultValue={this.props.value}
         onChange={this.handleChange}
       />
     );
