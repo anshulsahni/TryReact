@@ -8,8 +8,10 @@ const gutil = require('gulp-util');
 const browserify = require('browserify');
 const watchify = require('watchify');
 const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 const browserSync = require('browser-sync');
 const eslint = require('gulp-eslint');
+const sourcemaps = require('gulp-sourcemaps');
 
 /**
  * importing config variables
@@ -35,17 +37,24 @@ const bundleJs = function(options) {
   return function() {
 
     const bundler = watchify(browserify(options.srcDir + '/' + options.srcFile, {
-      extensions: config.BUNDLING_EXTENSIONS
+      extensions: config.BUNDLING_EXTENSIONS,
+      debug: true,
     }));
 
     const compile = function() {
       bundler
       .transform('babelify', {
-        extensions: config.BUNDLING_EXTENSIONS
+        extensions: config.BUNDLING_EXTENSIONS,
+        sourceMaps: true,
       })
       .bundle()
-      .on('error', handleError)
       .pipe(source(options.destFile))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({
+        loadMaps: true,
+      }))
+      .pipe(sourcemaps.write('./'))
+      .on('error', handleError)
       .pipe(gulp.dest(options.destDir));
     };
 
@@ -89,12 +98,13 @@ gulp.task('scripts:development', bundleJs({
   srcFile: 'Root.jsx',
   destDir: config.EXAMPLE_DIR + '/build',
   destFile: 'main.js',
+  update: true,
 }));
 
 /**
  * build task
  */
-gulp.task('build', ['lint', 'scripts'], function() {
+gulp.task('build', ['lint', 'scripts:development'], function() {
   gutil.log('Build complete...');
 });
 
