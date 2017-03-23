@@ -17,6 +17,7 @@ class Password extends Component {
       'max',
       'digits',
       'noSpaces',
+      'symbols',
     ]));
 
     // binding unbound methods
@@ -29,7 +30,7 @@ class Password extends Component {
   }
 
   handleChange() {
-    const password = this.password.value;
+    const password = this.password.value || '';
     this.props.onChange(this.validation.validate(password), password);
   }
 
@@ -45,6 +46,14 @@ class Password extends Component {
 }
 
 Password.propTypes = {
+  /**
+  * value of password text
+  */
+  value: PropTypes.string,
+  /**
+  * method called everytime value is changed in text
+  */
+  onChange: PropTypes.func,
   /**
    * specifies whether password should contain atleast one uppercase characters
    */
@@ -72,13 +81,9 @@ Password.propTypes = {
    */
   min: PropTypes.number,  // eslint-disable-line react/require-default-props
   /**
-   * value of password text
+   * specifies whether or not password should contain symbols
    */
-  value: PropTypes.string,
-  /**
-   * method called everytime value is changed in text
-   */
-  onChange: PropTypes.func,
+  symbols: PropTypes.bool,
 };
 
 Password.defaultProps = {
@@ -88,6 +93,7 @@ Password.defaultProps = {
   uppercase: false,
   lowercase: false,
   digits: false,
+  symbols: false,
 };
 
 export default Password;

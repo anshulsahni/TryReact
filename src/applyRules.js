@@ -61,6 +61,17 @@ const checkAndApplyNoSpaces = (validation, noSpaces) => {
 };
 
 /*
+  To check whether or not password should contain symbols
+ */
+const checkAndApplySymbols = (validation, symbols) => {
+  if (symbols) {
+    validation
+      .has()
+      .symbols()
+  }
+}
+
+/*
   Method to apply rules to the passed validation
  */
 const applyRules = (validation, props) => {
@@ -70,6 +81,7 @@ const applyRules = (validation, props) => {
   checkAndApplyLowercase(validation, props.lowercase);
   checkAndApplyDigits(validation, props.digits);
   checkAndApplyNoSpaces(validation, props.noSpaces);
+  checkAndApplySymbols(validation, props.symbols);
 };
 
 export default applyRules;
