@@ -92,7 +92,6 @@ const bundleJs = function(options) {
     if (options.development) {
       bundler.on('update', function() {
         compile();
-        console.log('ansh');
         gutil.log('Re bundling javascript files...');
       });
     }
