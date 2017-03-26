@@ -40,6 +40,7 @@ class Password extends Component {
         ref={this.assignPasswordInputRef}
         defaultValue={this.props.value}
         onChange={this.handleChange}
+        type="password"
       />
     );
   }
