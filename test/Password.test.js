@@ -1,6 +1,10 @@
 const React = require('react');
-const shallow = require('enzyme').shallow;
+const enzyme = require('enzyme');
 const expect = require('chai').expect;
+const sinon = require('sinon');
+
+const shallow = enzyme.shallow;
+const mount = enzyme.mount;
 
 const TryReactPassword = require('../src/Password.jsx').default;
 
@@ -13,5 +17,15 @@ describe('<TryReactPassword />', function() {
       .have
       .length(1);
   });
-  
+
+  it('should call onChange handler method', function() {
+    const handleChange = sinon.spy();
+    const wrapper =   mount(<TryReactPassword onChange={handleChange} />);
+    const input = wrapper.find('input');
+    input.get(0).value = 'password';
+    input.first().simulate('change');
+    console.log(handleChange);
+    expect(handleChange.calledOnce).to.equal(true);
+  });
+
 });
