@@ -45,6 +45,7 @@
     "eslint-plugin-react": "^6.10.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^4.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",

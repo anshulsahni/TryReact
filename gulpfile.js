@@ -13,6 +13,7 @@ const browserSync = require('browser-sync');
 const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
+const mocha = require('gulp-mocha');
 
 /**
  * function to handle errors from any task
@@ -110,6 +111,9 @@ gulp.task('lint:failOnError', checkLint(true));
 // this task does not fail on any lint error
 gulp.task('lint:noFailOnError', checkLint(false));
 
+// default lint task
+gulp.task('lint', ['lint:failOnError']);
+
 /**
  * tasks to bundle all the javscript files
  */
@@ -131,6 +135,21 @@ gulp.task('scripts:release', bundleJs({
   destFile: 'index.js',
   development: false,
 }));
+
+/**
+ * task to initial tests using mocha
+ */
+
+gulp.task('test', function() {
+  gulp.src([
+    'test/.setup.js',
+    'test/**/*.test.js',
+  ])
+    .pipe(mocha({
+      reporter: 'dot',
+      require: 'babel-core/register',
+    }));
+});
 
 /**
  * build task
@@ -165,7 +184,7 @@ gulp.task('default', ['build', 'browserSync'], function() {
 /**
  * release task for gulp
  */
-gulp.task('release', ['lint:failOnError', 'scripts:release'], function() {
+gulp.task('release', ['lint:failOnError', 'test', 'scripts:release'], function() {
   gutil.log('Project is released');
 });
 
