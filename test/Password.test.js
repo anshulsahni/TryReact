@@ -24,7 +24,6 @@ describe('<TryReactPassword />', function() {
     const input = wrapper.find('input');
     input.get(0).value = 'password';
     input.first().simulate('change');
-    console.log(handleChange);
     expect(handleChange.calledOnce).to.equal(true);
   });
 

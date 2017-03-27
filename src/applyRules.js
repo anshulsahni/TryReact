@@ -67,9 +67,9 @@ const checkAndApplySymbols = (validation, symbols) => {
   if (symbols) {
     validation
       .has()
-      .symbols()
+      .symbols();
   }
-}
+};
 
 /*
   Method to apply rules to the passed validation
