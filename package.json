@@ -4,7 +4,9 @@
   "description": "A password input with certain validations provided by the developer via props",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register test/.setup.js test/**/*.test.js"
+    "test": "gulp test",
+    "lint": "gulp lint",
+    "ci-check": "gulp ci-check"
   },
   "repository": {
     "type": "git",

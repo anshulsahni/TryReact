@@ -188,4 +188,9 @@ gulp.task('release', ['lint:failOnError', 'test', 'scripts:release'], function()
   gutil.log('Project is released');
 });
 
+/**
+ * task to check in ci
+ */
+gulp.task('ci-check', ['lint', 'test']);
+
 /* eslint-enable */
