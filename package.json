@@ -1,6 +1,6 @@
 {
   "name": "try-react-password-input",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A password input with certain validations provided by the developer via props",
   "main": "dist/index.js",
   "scripts": {
