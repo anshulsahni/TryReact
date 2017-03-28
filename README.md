@@ -42,3 +42,8 @@ Note: *All the above props/validation if **Boolean** has default value as **fals
 | :--- | :--- | :--- |
 | value | String | value of password text |
 | onChange | Function | method called everytime value is changed in password input field, has passwordValidity and password value in arguments |
+
+
+## ToDos
+- [ ] Adding More Tests
+- [ ] Update the component with new addition to password-validator api
