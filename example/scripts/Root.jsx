@@ -25,7 +25,7 @@ class Root extends React.Component {
   renderPasswordValidity() {
     return this.state.passwordValid ?
       <span style={{ color: 'green' }}>Valid</span> :
-      <span style={{ color: 'red' }}>Invalid</span>
+      <span style={{ color: 'red' }}>Invalid</span>;
   }
 
   render() {
@@ -36,6 +36,7 @@ class Root extends React.Component {
           lowercase
           digits
           onChange={this.handleOnChange}
+          className="password-input"
         />
         <div>
           The password text is <b>{this.state.password}</b> and it is {this.renderPasswordValidity()} password
