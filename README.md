@@ -1,16 +1,16 @@
-# try-react-password
+# try-react-password-input
 A password input component which accepts certain qualifications for password to valid as props and then returns whether password is valid or in the callback
 
 ## Installation
 
 ```
-npm install try-react-password
+npm install try-react-password-input
 ```
 
 ## How to use it ?
 
 ```
-import Password from 'try-react-password';
+import Password from 'try-react-password-input';
 
 handleChange(passwordValid, password) {
   console.log(passwordValid, password);
@@ -21,6 +21,7 @@ handleChange(passwordValid, password) {
   lowercase
   digits
   onChange={this.handleChange}
+  className="password-input"
 />
 ```
 ## Password Validations available pas props
@@ -43,7 +44,10 @@ Note: *All the above props/validation if **Boolean** has default value as **fals
 | value | String | value of password text |
 | onChange | Function | method called everytime value is changed in password input field, has passwordValidity and password value in arguments |
 
+**Note** : *All the other default props such as **className, id,** etc. are accpted by default if they are not one of the props listed above such as **onChange**.*
+
 
 ## ToDos
 - [ ] Adding More Tests
 - [ ] Update the component with new addition to password-validator api
+- [ ] Add eslint check on test and example files
