@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { Component, PropTypes } from 'react';
 import PasswordValidation from 'password-validator';
+import { pickHTMLProps as pickProps } from 'pick-react-known-prop';
+import omit from 'lodash.omit';
 
 import pick from 'lodash.pick';
 
@@ -35,12 +37,22 @@ class Password extends Component {
   }
 
   render() {
+    const omittedDefaultProps = [
+      'onChange',
+      'value',
+      'defaultValue',
+      'type',
+      'min',
+      'max',
+    ];
+
     return (
       <input
         ref={this.assignPasswordInputRef}
         defaultValue={this.props.value}
         onChange={this.handleChange}
         type="password"
+        {...pickProps(omit(this.props, omittedDefaultProps))}
       />
     );
   }

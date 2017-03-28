@@ -26,8 +26,10 @@
   },
   "homepage": "https://github.com/TryReact/password#readme",
   "dependencies": {
+    "lodash.omit": "^4.5.0",
     "lodash.pick": "^4.4.0",
     "password-validator": "^2.1.2",
+    "pick-react-known-prop": "^0.1.0",
     "react": "^15.4.2"
   },
   "devDependencies": {
