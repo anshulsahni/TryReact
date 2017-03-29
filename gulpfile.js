@@ -14,6 +14,7 @@ const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const mocha = require('gulp-mocha');
+const babel = require('gulp-babel');
 
 /**
  * function to handle errors from any task
@@ -128,13 +129,14 @@ gulp.task('scripts:development', bundleJs({
 }));
 
 // from src directory to distribution directory - release/production mode
-gulp.task('scripts:release', bundleJs({
-  srcDir: 'src',
-  srcFile: 'index.js',
-  destDir: 'dist',
-  destFile: 'index.js',
-  development: false,
-}));
+gulp.task('scripts:release', function() {
+  return gulp.src([
+    'src/**/*.js',
+    'src/**/*.jsx',
+  ])
+    .pipe(babel())
+    .pipe(gulp.dest('dist'));
+});
 
 /**
  * task to initial tests using mocha
