@@ -4,6 +4,8 @@
 
 A password input component which accepts certain qualifications for password to valid as props and then returns whether password is valid or in the callback
 
+For validations we have used [password-validator](https://github.com/tarunbatra/password-validator) module
+
 ## Installation
 
 ```
