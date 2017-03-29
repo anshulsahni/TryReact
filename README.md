@@ -36,7 +36,8 @@ handleChange(passwordValid, password) {
 | min | Number | specifies the minimum number characters in password no min chars in password, unless specified |
 | symbols | Boolean | specifies whether or not password should contain symbols |
 
-Note: *All the above props/validation if **Boolean** has default value as **false**, and **others** are **undefined** *
+**Note**: *All the above props/validation if **Boolean** has default value as **false**, and **others** are **undefined**.*
+
 ## Other Props
 
 | Prop | Type | Description |
