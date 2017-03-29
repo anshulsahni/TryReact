@@ -1,4 +1,3 @@
 {
-  "pareser": "babel-eslint",
   "extends": "airbnb"
 }

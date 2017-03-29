@@ -3,7 +3,7 @@
  */
 const checkAndApplyMin = (validation, min) => {
   if (min) {
-    validation.min(min);
+    validation.isMin(min);
   }
 };
 
@@ -12,7 +12,7 @@ To check and applt minimum no of characters in password
  */
 const checkAndApplyMax = (validation, max) => {
   if (max) {
-    validation.max(max);
+    validation.isMax(max);
   }
 };
 
