@@ -146,7 +146,6 @@ gulp.task('test', function() {
     'test/**/*.test.js',
   ])
     .pipe(mocha({
-      reporter: 'dot',
       require: 'babel-core/register',
     }));
 });
