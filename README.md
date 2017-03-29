@@ -54,6 +54,6 @@ handleChange(passwordValid, password) {
 
 
 ## ToDos
-- [ ] Adding More Tests
+- [x] Adding More Tests
 - [ ] Update the component with new addition to password-validator api
 - [ ] Add eslint check on test and example files
