@@ -1,1 +1,1 @@
-module.exports = require('./Password');
+module.exports = require('./PasswordInput');

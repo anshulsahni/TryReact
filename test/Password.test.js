@@ -7,14 +7,14 @@ const sinon = require('sinon');
 const shallow = enzyme.shallow;
 const mount = enzyme.mount;
 
-const TryReactPassword = require('../src/Password.jsx').default;
+const PasswordInput = require('../src/PasswordInput.jsx').default;
 
-describe('<TryReactPassword />', function() {
+describe('<PasswordInput />', function() {
 
   describe('Should render everytime with correct attributes', function() {
 
     it('should render component with type password', function() {
-      const wrapper = shallow(<TryReactPassword />);
+      const wrapper = shallow(<PasswordInput />);
       expect(wrapper.find('input[type="password"]'))
       .to
       .have
@@ -23,13 +23,13 @@ describe('<TryReactPassword />', function() {
 
     it('should render Password with correct className', function() {
       const sampleClassName = 'password';
-      const wrapper = shallow(<TryReactPassword className={sampleClassName} />);
+      const wrapper = shallow(<PasswordInput className={sampleClassName} />);
       expect(wrapper.find('.' + sampleClassName)).to.have.length(1);
     });
 
     it('should render Password with correct id', function() {
       const sampleId = 'password-input';
-      const wrapper = shallow(<TryReactPassword id={sampleId} />);
+      const wrapper = shallow(<PasswordInput id={sampleId} />);
       expect(wrapper.find('#' + sampleId)).to.have.length(1);
     });
 
@@ -39,7 +39,7 @@ describe('<TryReactPassword />', function() {
 
     it('should call onChange handler method', function() {
       const handleChange = sinon.spy();
-      const wrapper =   mount(<TryReactPassword onChange={handleChange} />);
+      const wrapper =   mount(<PasswordInput onChange={handleChange} />);
       const input = wrapper.find('input');
       input.get(0).value = 'password';
       input.first().simulate('change');
@@ -58,7 +58,7 @@ describe('<TryReactPassword />', function() {
           onChange: handleChange,
           min: 6,
         };
-        const wrapper = mount(<TryReactPassword {...props} />);
+        const wrapper = mount(<PasswordInput {...props} />);
         const input = wrapper.find('input');
         input.get(0).value = 'password123';
         input.first().simulate('change');
@@ -71,7 +71,7 @@ describe('<TryReactPassword />', function() {
           onChange: handleChange,
           min: 15,
         };
-        const wrapper = mount(<TryReactPassword {...props} />);
+        const wrapper = mount(<PasswordInput {...props} />);
         const input = wrapper.find('input');
         input.get(0).value = 'password123';
         input.first().simulate('change');
@@ -85,7 +85,7 @@ describe('<TryReactPassword />', function() {
       it('should return password as valid', function() {
         const handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             max={15}
           />
@@ -99,7 +99,7 @@ describe('<TryReactPassword />', function() {
       it('should return password as invalid', function() {
         const handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             max={6}
           />
@@ -119,7 +119,7 @@ describe('<TryReactPassword />', function() {
       beforeEach(function() {
         handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             uppercase
           />
@@ -149,7 +149,7 @@ describe('<TryReactPassword />', function() {
       beforeEach(function() {
         handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             lowercase
           />
@@ -178,7 +178,7 @@ describe('<TryReactPassword />', function() {
       beforeEach(function() {
         handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             digits
           />
@@ -207,7 +207,7 @@ describe('<TryReactPassword />', function() {
       beforeEach(function() {
         handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             noSpaces
           />
@@ -236,7 +236,7 @@ describe('<TryReactPassword />', function() {
       beforeEach(function() {
         handleChange = sinon.spy();
         const wrapper = mount(
-          <TryReactPassword
+          <PasswordInput
             onChange={handleChange}
             symbols
           />
@@ -263,10 +263,10 @@ describe('<TryReactPassword />', function() {
 
   describe('Checking other props', function() {
 
-    describe('Value prop', function() {
+    describe('"value" prop', function() {
 
       it('should render input element with value passed as prop', function() {
-        const wrapper = mount(<TryReactPassword value="password123" />);
+        const wrapper = mount(<PasswordInput value="password123" />);
         const value = wrapper.find('input').get(0).value;
         expect(value).to.equal('password123');
       });
