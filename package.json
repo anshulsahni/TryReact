@@ -1,7 +1,7 @@
 {
-  "name": "component-boilerplate",
-  "version": "0.0.1",
-  "description": "component description",
+  "name": "try-react-hierarchical-tree",
+  "version": "0.0.0",
+  "description": "A component used for building any type hierarchichal tree and with just input in correct JSON format",
   "main": "dist/index.js",
   "scripts": {
     "test": "gulp test",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anshulsahni/react-component-boilerplate.git"
+    "url": "https://github.com/TryReact/hierarchical-tree.git"
   },
   "keywords": [
     "react"
@@ -18,9 +18,9 @@
   "author": "Anshul Sahni <anshul_sahni@live.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anshulsahni/react-component-boilerplate/issues"
+    "url": "https://github.com/TryReact/hierarchical-tree/issues"
   },
-  "homepage": "https://github.com/anshulsahni/react-component-boilerplate#readme",
+  "homepage": "https://github.com/TryReact/hierarchical-tree#readme",
   "dependencies": {
     "react": "^15.4.2"
   },
