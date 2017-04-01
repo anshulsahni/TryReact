@@ -1,7 +1,7 @@
 {
-  "name": "try-react-hierarchical-tree",
+  "name": "try-react-family-tree",
   "version": "0.0.0",
-  "description": "A component used for building any type hierarchichal tree and with just input in correct JSON format",
+  "description": "A component used for building any type family tree and with just input in correct JSON format",
   "main": "dist/index.js",
   "scripts": {
     "test": "gulp test",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TryReact/hierarchical-tree.git"
+    "url": "https://github.com/TryReact/family-tree.git"
   },
   "keywords": [
     "react"
@@ -18,9 +18,9 @@
   "author": "Anshul Sahni <anshul_sahni@live.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TryReact/hierarchical-tree/issues"
+    "url": "https://github.com/TryReact/family-tree/issues"
   },
-  "homepage": "https://github.com/TryReact/hierarchical-tree#readme",
+  "homepage": "https://github.com/TryReact/family-tree#readme",
   "dependencies": {
     "react": "^15.4.2"
   },
