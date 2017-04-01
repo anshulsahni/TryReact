@@ -1,4 +1,4 @@
-# react-component-tile
+# react-component-title
 
 *Required badges*
 
@@ -7,7 +7,7 @@ Short Introduction or Description of component
 ## Installation
 
 ```
-npm install react-component-tile
+npm install react-component-title
 ```
 
 ## How to use it ?
