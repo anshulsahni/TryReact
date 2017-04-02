@@ -20,7 +20,7 @@ class Family extends Component {
 
   renderChildren() {
     return map(this.props.member.children, child => (
-      <Family member={child} />
+      <Family key={child.id} member={child} />
     ));
   }
 

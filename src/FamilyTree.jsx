@@ -27,7 +27,7 @@ class FamilyTree extends Component {
 
   render() {
     return (
-      <Family family={this.props.family} />
+      <Family member={this.props.family} />
     );
   }
 }

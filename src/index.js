@@ -1,1 +1,1 @@
-module.exports = require('./Example');
+module.exports = require('./FamilyTree');
