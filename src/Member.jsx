@@ -37,7 +37,10 @@ class Member extends Component {
 }
 
 Member.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   name: PropTypes.string,
   image: PropTypes.string,
   dob: PropTypes.string,
