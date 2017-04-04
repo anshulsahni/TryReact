@@ -3,6 +3,7 @@
 /**
  * required modules
  */
+const fs = require('fs');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const browserify = require('browserify');
@@ -10,6 +11,7 @@ const watchify = require('watchify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const browserSync = require('browser-sync');
+const sass = require('node-sass');
 const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
@@ -136,6 +138,26 @@ gulp.task('scripts:release', function() {
   ])
     .pipe(babel())
     .pipe(gulp.dest('dist'));
+});
+
+/**
+ * task to bundle all scss files
+ */
+
+// task to bundle styling files - release/production mode
+gulp.task('styles:release', function() {
+  sass.render({
+    file: 'src/styles/index.scss',
+  }, function(error, result) {
+    console.log(result.css);
+    if (!error) {
+      fs.writeFile('dist/styles/dist.css', result.css, function(err) {
+        if (err) {
+          console.log(error);
+        }
+      });
+    }
+  });
 });
 
 /**
