@@ -25,15 +25,10 @@ class Family extends Component {
   }
 
   render() {
-    const member = this.props.member;
     return (
       <div>
         <Member
-          id={member.id}
-          name={member.name}
-          image={member.image}
-          dob={member.dob}
-          dod={member.dod}
+          member={this.props.member}
         />
         {this.renderChildren()}
       </div>
