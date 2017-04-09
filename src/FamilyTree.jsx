@@ -1,13 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 
+import { updateFamily } from './helpers';
 import Family from './Family';
 
 class FamilyTree extends Component {
-  constructor() {
+  constructor(props) {
     super();
+    this.state = {
+      family: props.family,
+    };
+
+    // handle methods bound to `this`
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   handleSave() {
@@ -20,19 +26,25 @@ class FamilyTree extends Component {
     // TODO
   }
 
-  handleChange() {
+  handleUpdate(member) {
+    this.setState({
+      family: updateFamily(this.state.family, member),
+    });
     this.props.onChange();
-    // TODO
   }
 
   render() {
     return (
-      <Family member={this.props.family} />
+      <Family
+        member={this.state.family}
+        onUpdate={this.handleUpdate}
+      />
     );
   }
 }
 
 FamilyTree.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   family: PropTypes.object,
   onSave: PropTypes.func,
   onDelete: PropTypes.func,

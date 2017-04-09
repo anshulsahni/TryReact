@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import head from 'lodash.head';
 
 import ViewMember from './View';
+import EditMember from './Edit';
 
 const availableModes = [
   'view',
@@ -17,6 +18,18 @@ class Member extends Component {
     };
 
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
+
+  setMode(mode) {
+    this.setState({ mode });
+  }
+
+  assignRef(refName) {
+    return (ref) => {
+      this[refName] = ref;
+    };
   }
 
   handleEditClick() {
@@ -25,17 +38,37 @@ class Member extends Component {
     });
   }
 
+  handleSave() {
+    this.props.onUpdate(this.edit.getValue());
+    this.setMode('view');
+  }
+
+  handleCancel() {
+    this.setMode('view');
+  }
+
   renderModes() {
     const member = this.props.member;
     switch (this.state.mode) {
       case 'view':
         return (
           <ViewMember
+            id={member.id}
             name={member.name}
             image={member.image}
             dob={member.dob}
             dod={member.dod}
             onEditClick={this.handleEditClick}
+          />
+        );
+      case 'edit':
+        return (
+          <EditMember
+            id={member.id}
+            name={member.name}
+            onSave={this.handleSave}
+            onCancel={this.handleCancel}
+            ref={this.assignRef('edit')}
           />
         );
       default:
@@ -45,7 +78,7 @@ class Member extends Component {
 
   render() {
     return (
-      <div id={this.props.id}>
+      <div id={this.props.member.id}>
         {this.renderModes()}
       </div>
     );
@@ -53,10 +86,7 @@ class Member extends Component {
 }
 
 Member.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  onUpdate: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   member: PropTypes.object,
 };

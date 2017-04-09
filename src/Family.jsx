@@ -20,7 +20,11 @@ class Family extends Component {
 
   renderChildren() {
     return map(this.props.member.children, child => (
-      <Family key={child.id} member={child} />
+      <Family
+        key={child.id}
+        member={child}
+        onUpdate={this.props.onUpdate}
+      />
     ));
   }
 
@@ -29,6 +33,7 @@ class Family extends Component {
       <div>
         <Member
           member={this.props.member}
+          onUpdate={this.props.onUpdate}
         />
         {this.renderChildren()}
       </div>
@@ -37,6 +42,8 @@ class Family extends Component {
 }
 
 Family.propTypes = {
+  onUpdate: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   member: PropTypes.object,
 };
 
