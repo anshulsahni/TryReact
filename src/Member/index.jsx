@@ -4,10 +4,12 @@ import head from 'lodash.head';
 
 import ViewMember from './View';
 import EditMember from './Edit';
+import AddMember from './Add';
 
 const availableModes = [
   'view',
   'edit',
+  'add',
 ];
 
 class Member extends Component {
@@ -20,6 +22,7 @@ class Member extends Component {
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   setMode(mode) {
@@ -30,6 +33,10 @@ class Member extends Component {
     return (ref) => {
       this[refName] = ref;
     };
+  }
+
+  handleAddClick() {
+    this.setMode('add');
   }
 
   handleEditClick() {
@@ -50,16 +57,24 @@ class Member extends Component {
   renderModes() {
     const member = this.props.member;
     switch (this.state.mode) {
+      case 'add':
       case 'view':
         return (
-          <ViewMember
-            id={member.id}
-            name={member.name}
-            image={member.image}
-            dob={member.dob}
-            dod={member.dod}
-            onEditClick={this.handleEditClick}
-          />
+          <div>
+            <ViewMember
+              id={member.id}
+              name={member.name}
+              image={member.image}
+              dob={member.dob}
+              dod={member.dod}
+              onEditClick={this.handleEditClick}
+            />
+            {
+              this.state.mode === 'add' ? (
+                <AddMember id={member.id} />
+              ) : null
+            }
+          </div>
         );
       case 'edit':
         return (
@@ -80,6 +95,12 @@ class Member extends Component {
     return (
       <div id={this.props.member.id}>
         {this.renderModes()}
+        <input
+          name="add"
+          type="button"
+          value="Add Child"
+          onClick={this.handleAddClick}
+        />
       </div>
     );
   }

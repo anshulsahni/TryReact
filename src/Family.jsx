@@ -34,6 +34,7 @@ class Family extends Component {
         <Member
           member={this.props.member}
           onUpdate={this.props.onUpdate}
+          onAdd={this.props.onAdd}
         />
         {this.renderChildren()}
       </div>
@@ -43,6 +44,7 @@ class Family extends Component {
 
 Family.propTypes = {
   onUpdate: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   member: PropTypes.object,
 };
