@@ -1,0 +1,69 @@
+{
+  "name": "try-react-password-input",
+  "version": "0.1.0",
+  "description": "A password input with certain validations provided by the developer via props",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "gulp test",
+    "lint": "gulp lint",
+    "ci-check": "gulp ci-check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TryReact/password-input.git"
+  },
+  "keywords": [
+    "try-react",
+    "password",
+    "react",
+    "password",
+    "validator"
+  ],
+  "author": "Anshul Sahni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TryReact/password/issues"
+  },
+  "homepage": "https://github.com/TryReact/password#readme",
+  "dependencies": {
+    "lodash.omit": "^4.5.0",
+    "lodash.pick": "^4.4.0",
+    "password-validator": "^2.1.2",
+    "pick-react-known-prop": "^0.1.0",
+    "react": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.18.8",
+    "browserify": "^14.1.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.8.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^4.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.1.0",
+    "gulp-util": "^3.0.8",
+    "jsdom": "^9.12.0",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "sinon": "^2.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
+  },
+  "files": [
+    "dist/"
+  ]
+}
