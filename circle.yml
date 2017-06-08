@@ -1,0 +1,8 @@
+dependencies:
+  override:
+    - npm install
+    - ./node_modules/.bin/lerna bootstrap
+
+test:
+  override:
+    - ./node_modules/.bin/lerna run ci-check
