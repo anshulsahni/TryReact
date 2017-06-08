@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TryReact/password-input.git"
+    "url": "https://github.com/anshulsahni/TryReact.git"
   },
   "keywords": [
     "try-react",
@@ -22,9 +22,9 @@
   "author": "Anshul Sahni",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TryReact/password/issues"
+    "url": "https://github.com/anshulsahni/TryReact/issues"
   },
-  "homepage": "https://github.com/TryReact/password#readme",
+  "homepage": "https://github.com/anshulsahni/TryReact#readme",
   "dependencies": {
     "lodash.omit": "^4.5.0",
     "lodash.pick": "^4.4.0",
