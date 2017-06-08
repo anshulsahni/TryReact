@@ -1,6 +1,6 @@
 {
   "name": "try-react-family-tree",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "description": "A component used for building any type family tree and with just input in correct JSON format",
   "main": "dist/index.js",
   "scripts": {
