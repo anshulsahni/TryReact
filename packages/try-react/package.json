@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/anshulsahni/TryReact/issues"
   },
-  "homepage": "https://github.com/anshulsahni/TryReact#readme"
+  "homepage": "https://github.com/anshulsahni/TryReact#readme",
+  "dependencies": {
+    "try-react-family-tree": "0.0.1-0",
+    "try-react-password-input": "^0.1.1"
+  }
 }
