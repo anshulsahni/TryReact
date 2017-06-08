@@ -2,8 +2,8 @@
 import React, { Component, PropTypes } from 'react';
 import PasswordValidation from 'password-validator';
 import { pickHTMLProps as pickProps } from 'pick-react-known-prop';
-import omit from 'lodash.omit';
 
+import omit from 'lodash.omit';
 import pick from 'lodash.pick';
 
 import applyRules from './applyRules';
@@ -33,7 +33,8 @@ class Password extends Component {
 
   handleChange() {
     const password = this.password.value || '';
-    this.props.onChange(this.validation.validate(password), password);
+    const list = this.props.list;
+    this.props.onChange(this.validation.validate(password, { list }), password);
   }
 
   render() {
@@ -97,6 +98,10 @@ Password.propTypes = {
    * specifies whether or not password should contain symbols
    */
   symbols: PropTypes.bool,
+  /**
+   * specfies whether to return list of failed validations or only if they have failed or not
+   */
+  list: PropTypes.bool,
 };
 
 Password.defaultProps = {
@@ -107,6 +112,7 @@ Password.defaultProps = {
   lowercase: false,
   digits: false,
   symbols: false,
+  list: true,
 };
 
 export default Password;
