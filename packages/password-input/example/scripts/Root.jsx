@@ -36,13 +36,13 @@ class Root extends React.Component {
           lowercase
           digits
           onChange={this.handleOnChange}
-          className="password-input"
+          list
         />
         <div>
           The password text is <b>{this.state.password}</b> and it is {this.renderPasswordValidity()} password
         </div>
       </div>
-    )
+    );
   }
 }
 
