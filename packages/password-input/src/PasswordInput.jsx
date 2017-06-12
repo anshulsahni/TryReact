@@ -9,7 +9,6 @@ import pick from 'lodash.pick';
 import intersection from 'lodash.intersection';
 import pickBy from 'lodash.pickby';
 import keys from 'lodash.keys';
-import isEmpty from 'lodash.isempty';
 
 import applyRules from './applyRules';
 
@@ -24,6 +23,8 @@ const validations = [
   'noSpaces',
   'symbols',
 ];
+
+const getAvlblValidations = props => intersection(keys(pickBy(props, isTrueOrNonZeroNumber)), validations);
 
 const validationMessages = (validation, quant) => {
   const messages = {
@@ -67,7 +68,7 @@ class Password extends Component {
   constructor(props) {
     super();
     this.state = {
-      passwordValidity: props.list ? [] : null,
+      passwordValidity: props.list ? getAvlblValidations(props) : null,
     };
     this.validation = new PasswordValidation();
     applyRules(this.validation, pick(props, validations));
@@ -103,15 +104,12 @@ class Password extends Component {
     const passwordValidity = this.state.passwordValidity;
     const renderValidity = validation => (
       <li key={validation}>
-        {!isEmpty(passwordValidity) && passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
+        {passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
         <span>{validationMessages(validation)}</span>
       </li>
     );
 
-    const availableValidations = intersection(keys(pickBy(
-      this.props,
-      isTrueOrNonZeroNumber,
-    )), validations);
+    const availableValidations = getAvlblValidations(this.props);
 
     return (
       <div className="password-validity list">
