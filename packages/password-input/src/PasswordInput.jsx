@@ -94,9 +94,9 @@ class Password extends Component {
 
   renderPasswordValidityWithoutList() {
     return (
-      <div className="password-validity list-less">
+      <span className="password-validity list-less">
         {this.state.passwordValidity ? <GreenTick /> : <RedCross />}
-      </div>
+      </span>
     );
   }
 
@@ -219,7 +219,7 @@ Password.defaultProps = {
   lowercase: false,
   digits: false,
   symbols: false,
-  list: false,
+  list: true,
   showValidity: true,
   className: '',
   wrapperClass: '',
