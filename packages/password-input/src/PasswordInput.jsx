@@ -9,7 +9,7 @@ import pick from 'lodash.pick';
 import intersection from 'lodash.intersection';
 import pickBy from 'lodash.pickby';
 import keys from 'lodash.keys';
-import isNull from 'lodash.isnull';
+import isEmpty from 'lodash.isempty';
 
 import applyRules from './applyRules';
 
@@ -39,11 +39,35 @@ const validationMessages = (validation, quant) => {
   return messages[validation];
 };
 
+const GreenTick = () => (
+  <span>
+    <style jsx>{`
+      span {
+        color: green;
+      }
+    `}
+    </style>
+    &#10003;
+  </span>
+);
+
+const RedCross = () => (
+  <span>
+    <style jsx>{`
+      span {
+        color: red;
+      }
+    `}
+    </style>
+    &#10006;
+  </span>
+);
+
 class Password extends Component {
   constructor(props) {
     super();
     this.state = {
-      passwordValidity: null,
+      passwordValidity: props.list ? [] : null,
     };
     this.validation = new PasswordValidation();
     applyRules(this.validation, pick(props, validations));
@@ -67,15 +91,19 @@ class Password extends Component {
     this.props.onChange(passwordValidity, password);
   }
 
+  renderPasswordValidityWithoutList() {
+    return (
+      <div className="password-validity list-less">
+        {this.state.passwordValidity ? <GreenTick /> : <RedCross />}
+      </div>
+    );
+  }
+
   renderPasswordValidityWithList() {
     const passwordValidity = this.state.passwordValidity;
     const renderValidity = validation => (
       <li key={validation}>
-        {
-          passwordValidity.indexOf(validation) > -1 ?
-          (<span>&#10006;</span>) :
-          (<span>&#10003;</span>)
-        }
+        {!isEmpty(passwordValidity) && passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
         <span>{validationMessages(validation)}</span>
       </li>
     );
@@ -86,32 +114,43 @@ class Password extends Component {
     )), validations);
 
     return (
-      <div className="password-validity">
+      <div className="password-validity list">
         <ul>{map(availableValidations, renderValidity)}</ul>
       </div>
     );
   }
 
+  renderPasswordValidity() {
+    return this.props.list ? this.renderPasswordValidityWithList() : this.renderPasswordValidityWithoutList();
+  }
+
   render() {
-    const omittedDefaultProps = [
+    const omittedProps = [
       'onChange',
       'value',
       'defaultValue',
       'type',
       'min',
       'max',
+      'className',
     ];
 
     return (
-      <div>
+      <div className={`${this.props.wrapperClass} password-input`}>
         <input
+          type="password"
           ref={this.assignPasswordInputRef}
           defaultValue={this.props.value}
           onChange={this.handleChange}
-          type="password"
-          {...pickProps(omit(this.props, omittedDefaultProps))}
+          className={`${this.props.className} input`}
+          {...pickProps(omit(this.props, omittedProps))}
         />
-        {isNull(this.state.passwordValidity) ? null : this.renderPasswordValidityWithList()}
+        {this.props.showValidity ? this.renderPasswordValidity() : null }
+        <style jsx>{`
+            .password-input {
+              display: inline-block;
+            }
+        `}</style>
       </div>
     );
   }
@@ -164,6 +203,14 @@ Password.propTypes = {
    * specifies whether password validity needs to be shown or not
    */
   showValidity: PropTypes.bool,
+  /**
+   * gives the className to the root element
+   */
+  wrapperClass: PropTypes.string,
+  /**
+   * append class to input element
+   */
+  className: PropTypes.string,
 };
 
 Password.defaultProps = {
@@ -176,6 +223,8 @@ Password.defaultProps = {
   symbols: false,
   list: true,
   showValidity: true,
+  className: '',
+  wrapperClass: '',
 };
 
 export default Password;
