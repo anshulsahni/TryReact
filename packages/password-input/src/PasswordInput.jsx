@@ -219,7 +219,7 @@ Password.defaultProps = {
   lowercase: false,
   digits: false,
   symbols: false,
-  list: true,
+  list: false,
   showValidity: true,
   className: '',
   wrapperClass: '',
