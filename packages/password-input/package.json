@@ -36,6 +36,7 @@
     "lodash.pickby": "^4.6.0",
     "password-validator": "^2.1.2",
     "pick-react-known-prop": "^0.1.0",
+    "pseudomap": "^1.0.2",
     "react": "^15.4.2",
     "styled-jsx": "^1.0.5"
   },
