@@ -69,17 +69,25 @@ class Password extends Component {
     super();
     this.state = {
       passwordValidity: props.list ? getAvlblValidations(props) : null,
+      showPassword: false,
     };
     this.validation = new PasswordValidation();
     applyRules(this.validation, pick(props, validations));
 
     // binding unbound methods
     this.handleChange = this.handleChange.bind(this);
+    this.toggleShowPassword = this.toggleShowPassword.bind(this);
     this.assignPasswordInputRef = this.assignPasswordInputRef.bind(this);
   }
 
   assignPasswordInputRef(ref) {
     this.password = ref;
+  }
+
+  toggleShowPassword() {
+    this.setState({
+      showPassword: !this.state.showPassword,
+    });
   }
 
   handleChange() {
@@ -122,6 +130,16 @@ class Password extends Component {
     return this.props.list ? this.renderPasswordValidityWithList() : this.renderPasswordValidityWithoutList();
   }
 
+  renderShowPasswordBtn() {
+    return (
+      <div className="show-password">
+        <button onClick={this.toggleShowPassword}>
+          &#9827;
+        </button>
+      </div>
+    );
+  }
+
   render() {
     const omittedProps = [
       'onChange',
@@ -136,13 +154,14 @@ class Password extends Component {
     return (
       <div className={`${this.props.wrapperClass} password-input`}>
         <input
-          type="password"
+          type={this.state.showPassword ? 'text' : 'password'}
           ref={this.assignPasswordInputRef}
           defaultValue={this.props.value}
           onChange={this.handleChange}
           className={`${this.props.className} input`}
           {...pickProps(omit(this.props, omittedProps))}
         />
+        {this.props.showPassword ? this.renderShowPasswordBtn() : null}
         {this.props.showValidity ? this.renderPasswordValidity() : null }
         <style jsx>{`
             .password-input {
@@ -209,6 +228,10 @@ Password.propTypes = {
    * append class to input element
    */
   className: PropTypes.string,
+  /**
+   * display `show password` button
+   */
+  showPassword: PropTypes.bool,
 };
 
 Password.defaultProps = {
@@ -223,6 +246,7 @@ Password.defaultProps = {
   showValidity: true,
   className: '',
   wrapperClass: '',
+  showPassword: false,
 };
 
 export default Password;
