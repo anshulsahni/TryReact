@@ -40,6 +40,9 @@ const validationMessages = (validation, quant) => {
   return messages[validation];
 };
 
+// eslint-disable-next-line max-len
+const eyeIconBase64 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODIiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDxnPiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjUyIiB3aWR0aD0iODQiIHk9Ii0xIiB4PSItMSIvPiA8L2c+IDxnPiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPiAgPGcgc3Ryb2tlPSJudWxsIiBpZD0ic3ZnXzEiPiAgIDxwYXRoIHN0cm9rZT0ibnVsbCIgaWQ9InN2Z18yIiBkPSJtNDEuOTI0OTk5LDEuMDI2OTg2Yy0xNS4yODE1NjIsMCAtMjkuMTM5NjgyLDguMzYwNjgzIC0zOS4zNjU1NjYsMjEuOTQwNjU5Yy0wLjgzNDQzMiwxLjExMjU3NiAtMC44MzQ0MzIsMi42NjY5MTEgMCwzLjc3OTQ4N2MxMC4yMjU4ODUsMTMuNTk2MzM3IDI0LjA4NDAwNCwyMS45NTcwMiAzOS4zNjU1NjYsMjEuOTU3MDJzMjkuMTM5NjgyLC04LjM2MDY4MyAzOS4zNjU1NjYsLTIxLjk0MDY1OWMwLjgzNDQzMiwtMS4xMTI1NzYgMC44MzQ0MzIsLTIuNjY2OTExIDAsLTMuNzc5NDg3Yy0xMC4yMjU4ODUsLTEzLjU5NjMzNyAtMjQuMDg0MDA0LC0yMS45NTcwMiAtMzkuMzY1NTY2LC0yMS45NTcwMnptMS4wOTYyMTUsNDAuNjI1Mzk1Yy0xMC4xNDQwNzgsMC42MzgwOTUgLTE4LjUyMTEyMywtNy43MjI1ODggLTE3Ljg4MzAyNywtMTcuODgzMDI3YzAuNTIzNTY1LC04LjM3NzA0NSA3LjMxMzU1MywtMTUuMTY3MDMyIDE1LjY5MDU5OCwtMTUuNjkwNTk4YzEwLjE0NDA3OCwtMC42MzgwOTUgMTguNTIxMTIzLDcuNzIyNTg4IDE3Ljg4MzAyNywxNy44ODMwMjdjLTAuNTM5OTI3LDguMzYwNjgzIC03LjMyOTkxNCwxNS4xNTA2NzEgLTE1LjY5MDU5OCwxNS42OTA1OTh6bS0wLjUwNzIwNCwtNy43NTUzMTFjLTUuNDY0NzEzLDAuMzQzNTkgLTkuOTgwNDY0LC00LjE1NTggLTkuNjIwNTEyLC05LjYyMDUxMmMwLjI3ODE0NCwtNC41MTU3NTEgMy45NDMxMDEsLTguMTY0MzQ2IDguNDU4ODUyLC04LjQ1ODg1MmM1LjQ2NDcxMywtMC4zNDM1OSA5Ljk4MDQ2NCw0LjE1NTggOS42MjA1MTIsOS42MjA1MTJjLTAuMjk0NTA1LDQuNTMyMTEyIC0zLjk1OTQ2Myw4LjE4MDcwOCAtOC40NTg4NTIsOC40NTg4NTJ6Ii8+ICA8L2c+IDwvZz48L3N2Zz4=';
+
 const GreenTick = () => (
   <span>
     <style jsx>{`
@@ -131,11 +134,39 @@ class Password extends Component {
   }
 
   renderShowPasswordBtn() {
+    const showPasswordClass = this.state.showPassword ? 'on' : 'off';
     return (
-      <div className="show-password">
-        <button onClick={this.toggleShowPassword}>
-          &#9827;
-        </button>
+      <div className={`${showPasswordClass} show-password`}>
+        <style jsx>{`
+            .show-password {
+              height: 25px;
+              width: 25px;
+              display: inline-block;
+            }
+
+            .show-password.on {
+              opacity: 0.8;
+            }
+
+            .show-password.off {
+              opacity: 0.2;
+            }
+
+            .show-password button {
+              height: 100%;
+              width: 100%;
+              box-sizing: border-box;
+              background-image: url(${eyeIconBase64});
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: contain;
+              background-color: transparent;
+              border: none;
+              outline: none;
+              cursor: pointer;
+            }
+        `}</style>
+        <button onClick={this.toggleShowPassword} />
       </div>
     );
   }
@@ -150,22 +181,52 @@ class Password extends Component {
       'max',
       'className',
     ];
-
+    const widthClass = this.props.showPassword ? 'with-show-password' : 'without-show-password';
     return (
-      <div className={`${this.props.wrapperClass} password-input`}>
-        <input
-          type={this.state.showPassword ? 'text' : 'password'}
-          ref={this.assignPasswordInputRef}
-          defaultValue={this.props.value}
-          onChange={this.handleChange}
-          className={`${this.props.className} input`}
-          {...pickProps(omit(this.props, omittedProps))}
-        />
-        {this.props.showPassword ? this.renderShowPasswordBtn() : null}
+      <div className={`${this.props.wrapperClass} ${widthClass} password-input`}>
+        <div className="container">
+          <input
+            type={this.state.showPassword ? 'text' : 'password'}
+            ref={this.assignPasswordInputRef}
+            defaultValue={this.props.value}
+            onChange={this.handleChange}
+            className={`${this.props.className} input`}
+            {...pickProps(omit(this.props, omittedProps))}
+          />
+          {this.props.showPassword ? this.renderShowPasswordBtn() : null}
+        </div>
         {this.props.showValidity ? this.renderPasswordValidity() : null }
         <style jsx>{`
             .password-input {
               display: inline-block;
+            }
+
+            .password-input .container {
+              border: 1px solid;
+              height: 27px;
+              box-sizing: border-box;
+              display: inherit;
+              border-radius: 4px;
+              overflow: hidden;
+              padding-right: 2px;
+            }
+
+            .password-input input {
+              float: left;
+              box-sizing: border-box;
+              height: 25px;
+              border: 1px solid;
+              border: none;
+              outline: none;
+              padding-left: 2px;
+            }
+
+            .with-show-password input {
+              width: calc(100% - 25px);
+            }
+
+            .without-show-password input {
+              width: 100%;
             }
         `}</style>
       </div>
