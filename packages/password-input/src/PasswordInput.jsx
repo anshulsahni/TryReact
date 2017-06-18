@@ -124,6 +124,12 @@ class Password extends Component {
 
     return (
       <div className="password-validity list">
+        <style jsx>{`
+            .password-validity.list {
+              position: absolute;
+              visibility: hidden;
+            }
+        `}</style>
         <ul>{map(availableValidations, renderValidity)}</ul>
       </div>
     );
@@ -184,51 +190,51 @@ class Password extends Component {
     const widthClass = this.props.showPassword ? 'with-show-password' : 'without-show-password';
     return (
       <div className={`${this.props.wrapperClass} ${widthClass} password-input`}>
-        <div className="container">
-          <input
-            type={this.state.showPassword ? 'text' : 'password'}
-            ref={this.assignPasswordInputRef}
-            defaultValue={this.props.value}
-            onChange={this.handleChange}
-            className={`${this.props.className} input`}
-            {...pickProps(omit(this.props, omittedProps))}
-          />
-          {this.props.showPassword ? this.renderShowPasswordBtn() : null}
-        </div>
+        <input
+          type={this.state.showPassword ? 'text' : 'password'}
+          ref={this.assignPasswordInputRef}
+          defaultValue={this.props.value}
+          onChange={this.handleChange}
+          className={`${this.props.className} input`}
+          {...pickProps(omit(this.props, omittedProps))}
+        />
+        {this.props.showPassword ? this.renderShowPasswordBtn() : null}
         {this.props.showValidity ? this.renderPasswordValidity() : null }
         <style jsx>{`
-            .password-input {
-              display: inline-block;
-            }
+          .password-input {
+            display: inline-block;
+            border: 1px solid;
+            height: 27px;
+            box-sizing: border-box;
+            display: inherit;
+            border-radius: 4px;
+            overflow: hidden;
+            padding-right: 2px;
+          }
 
-            .password-input .container {
-              border: 1px solid;
-              height: 27px;
-              box-sizing: border-box;
-              display: inherit;
-              border-radius: 4px;
-              overflow: hidden;
-              padding-right: 2px;
-            }
+          .password-input input {
+            float: left;
+            box-sizing: border-box;
+            height: 25px;
+            border: 1px solid;
+            border: none;
+            outline: none;
+            padding-left: 2px;
+          }
 
-            .password-input input {
-              float: left;
-              box-sizing: border-box;
-              height: 25px;
-              border: 1px solid;
-              border: none;
-              outline: none;
-              padding-left: 2px;
-            }
+          .with-show-password input {
+            width: calc(100% - 25px);
+          }
 
-            .with-show-password input {
-              width: calc(100% - 25px);
+          .without-show-password input {
+            width: 100%;
+          }
+      `}</style>
+        <style jsx global>{`
+            .password-input input:focus ~ .password-validity.list {
+              visibility: visible;
             }
-
-            .without-show-password input {
-              width: 100%;
-            }
-        `}</style>
+          `}</style>
       </div>
     );
   }
