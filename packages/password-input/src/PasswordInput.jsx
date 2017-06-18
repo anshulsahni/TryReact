@@ -115,6 +115,11 @@ class Password extends Component {
     const passwordValidity = this.state.passwordValidity;
     const renderValidity = validation => (
       <li key={validation}>
+        <style jsx>{`
+            li {
+              list-style-type: none;
+            }
+        `}</style>
         {passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
         <span>{validationMessages(validation)}</span>
       </li>
@@ -128,6 +133,17 @@ class Password extends Component {
             .password-validity.list {
               position: absolute;
               visibility: hidden;
+              background-color: rgba(0, 0, 0, 0.2);
+              border: 1px solid #000;
+              border-radius: 4px;
+              margin-left: 15px;
+              max-width: calc(100% - 15px);
+              box-sizing: border-box;
+            }
+
+            .password-validity.list ul {
+              padding: 0 10px;
+              margin: 10px 0;
             }
         `}</style>
         <ul>{map(availableValidations, renderValidity)}</ul>
