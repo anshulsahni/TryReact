@@ -26,6 +26,8 @@ const validations = [
 
 const getAvlblValidations = props => intersection(keys(pickBy(props, isTrueOrNonZeroNumber)), validations);
 
+const getEmptyPasswordValidity = props => (props.list ? getAvlblValidations(props) : null);
+
 const validationMessages = (validation, quant) => {
   const messages = {
     uppercase: 'Should contain atleast one uppercase letter',
@@ -71,7 +73,7 @@ class Password extends Component {
   constructor(props) {
     super();
     this.state = {
-      passwordValidity: props.list ? getAvlblValidations(props) : null,
+      passwordValidity: getEmptyPasswordValidity(props),
       showPassword: false,
     };
     this.validation = new PasswordValidation();
@@ -94,9 +96,9 @@ class Password extends Component {
   }
 
   handleChange() {
-    const password = this.password.value || '';
+    const password = this.password.value;
     const list = this.props.list;
-    const passwordValidity = this.validation.validate(password, { list });
+    const passwordValidity = password ? this.validation.validate(password, { list }) : getEmptyPasswordValidity(this.props);
     this.setState({
       passwordValidity,
     });
