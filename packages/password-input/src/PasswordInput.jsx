@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import PasswordValidation from 'password-validator';
 import { pickHTMLProps as pickProps } from 'pick-react-known-prop';
 
