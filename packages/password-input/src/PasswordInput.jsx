@@ -10,6 +10,7 @@ import pick from 'lodash.pick';
 import intersection from 'lodash.intersection';
 import pickBy from 'lodash.pickby';
 import keys from 'lodash.keys';
+import isNull from 'lodash.isnull';
 
 import applyRules from './applyRules';
 
@@ -118,7 +119,7 @@ class Password extends Component {
               text-align: center;
             }
         `}</style>
-        {this.state.passwordValidity ? <GreenTick /> : <RedCross />}
+        {!isNull(this.state.passwordValidity) && (this.state.passwordValidity ? <GreenTick /> : <RedCross />)}
       </div>
     );
   }
