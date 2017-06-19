@@ -108,9 +108,18 @@ class Password extends Component {
 
   renderPasswordValidityWithoutList() {
     return (
-      <span className="password-validity list-less">
+      <div className="password-validity list-less">
+        <style jsx>{`
+            .password-validity.list-less {
+              height: 25px;
+              width: 25px;
+              float: left;
+              padding: 3px 0;
+              text-align: center;
+            }
+        `}</style>
         {this.state.passwordValidity ? <GreenTick /> : <RedCross />}
-      </span>
+      </div>
     );
   }
 
@@ -206,9 +215,11 @@ class Password extends Component {
       'max',
       'className',
     ];
-    const widthClass = this.props.showPassword ? 'with-show-password' : 'without-show-password';
+    const { showPassword, showValidity, list } = this.props;
+    const widthClass = showPassword ? 'with-show-password' : 'without-show-password';
+    const validityClass = showValidity && !list ? 'show-validity' : 'hide-validity';
     return (
-      <div className={`${this.props.wrapperClass} ${widthClass} password-input`}>
+      <div className={`${this.props.wrapperClass} ${widthClass} ${validityClass} password-input`}>
         <input
           type={this.state.showPassword ? 'text' : 'password'}
           ref={this.assignPasswordInputRef}
@@ -217,8 +228,8 @@ class Password extends Component {
           className={`${this.props.className} input`}
           {...pickProps(omit(this.props, omittedProps))}
         />
-        {this.props.showPassword ? this.renderShowPasswordBtn() : null}
         {this.props.showValidity ? this.renderPasswordValidity() : null }
+        {this.props.showPassword ? this.renderShowPasswordBtn() : null}
         <style jsx>{`
           .password-input {
             display: inline-block;
@@ -241,11 +252,16 @@ class Password extends Component {
             padding-left: 2px;
           }
 
-          .with-show-password input {
+          .with-show-password.hide-validity input,
+          .without-show-password.show-validity input {
             width: calc(100% - 25px);
           }
 
-          .without-show-password input {
+          .with-show-password.show-validity input {
+            width: calc(100% - 25px - 25px);
+          }
+
+          .without-show-password.hide-validity input {
             width: 100%;
           }
       `}</style>
