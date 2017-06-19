@@ -163,10 +163,6 @@ class Password extends Component {
     );
   }
 
-  renderPasswordValidity() {
-    return this.props.list ? this.renderPasswordValidityWithList() : this.renderPasswordValidityWithoutList();
-  }
-
   renderShowPasswordBtn() {
     const showPasswordClass = this.state.showPassword ? 'on' : 'off';
     return (
@@ -228,8 +224,9 @@ class Password extends Component {
           className={`${this.props.className} input`}
           {...pickProps(omit(this.props, omittedProps))}
         />
-        {this.props.showValidity ? this.renderPasswordValidity() : null }
+        {showValidity && !list ? this.renderPasswordValidityWithoutList() : null }
         {this.props.showPassword ? this.renderShowPasswordBtn() : null}
+        {showValidity && list ? this.renderPasswordValidityWithList() : null }
         <style jsx>{`
           .password-input {
             display: inline-block;
