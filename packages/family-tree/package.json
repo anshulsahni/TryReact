@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "gulp test",
-    "lint": "gulp lint",
-    "ci-check": "gulp ci-check"
+    "lint": "gulp lint"
   },
   "repository": {
     "type": "git",
