@@ -84,6 +84,35 @@ describe('<PasswordInput />', function() {
 
   });
 
+  describe('Check Password Validity UI options', function() {
+
+    describe('When list is disabled', function() {
+
+      it('should not display any validity indicator since password field is empty', function() {
+        const wrapper = mount(<PasswordInput list={false} uppercase lowercase digits />);
+        expect(wrapper.text()).to.be.empty;
+      });
+
+      it('should display tick mark when password is correct', function() {
+        const wrapper = mount(<PasswordInput list={false} uppercase lowercase digits />);
+        const input = wrapper.find('input');
+        input.get(0).value = 'Password123';
+        input.first().simulate('change');
+        expect(wrapper.text()).to.equal('✓');
+      });
+
+      it('should display cross mark when password is not valid', function() {
+        const wrapper = mount(<PasswordInput list={false} uppercase lowercase digits />);
+        const input = wrapper.find('input');
+        input.get(0).value = 'password123';
+        input.first().simulate('change');
+        expect(wrapper.text()).to.equal('✖');
+      });
+
+    });
+
+  });
+
   describe('Checking password validity with different conditions', function() {
 
     describe('With list enabled', function() {
