@@ -58,7 +58,7 @@ describe('<PasswordInput />', function() {
           onChange: handleChange,
           min: 6,
         };
-        const wrapper = mount(<PasswordInput {...props} />);
+        const wrapper = mount(<PasswordInput list={false} {...props} />);
         const input = wrapper.find('input');
         input.get(0).value = 'password123';
         input.first().simulate('change');
@@ -71,7 +71,7 @@ describe('<PasswordInput />', function() {
           onChange: handleChange,
           min: 15,
         };
-        const wrapper = mount(<PasswordInput {...props} />);
+        const wrapper = mount(<PasswordInput list={false} {...props} />);
         const input = wrapper.find('input');
         input.get(0).value = 'password123';
         input.first().simulate('change');
@@ -85,7 +85,7 @@ describe('<PasswordInput />', function() {
       it('should return password as valid', function() {
         const handleChange = sinon.spy();
         const wrapper = mount(
-          <PasswordInput
+          <PasswordInput list={false}
             onChange={handleChange}
             max={15}
           />
@@ -100,6 +100,7 @@ describe('<PasswordInput />', function() {
         const handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             max={6}
           />
@@ -120,6 +121,7 @@ describe('<PasswordInput />', function() {
         handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             uppercase
           />
@@ -150,6 +152,7 @@ describe('<PasswordInput />', function() {
         handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             lowercase
           />
@@ -179,6 +182,7 @@ describe('<PasswordInput />', function() {
         handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             digits
           />
@@ -208,6 +212,7 @@ describe('<PasswordInput />', function() {
         handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             noSpaces
           />
@@ -237,6 +242,7 @@ describe('<PasswordInput />', function() {
         handleChange = sinon.spy();
         const wrapper = mount(
           <PasswordInput
+            list={false}
             onChange={handleChange}
             symbols
           />
