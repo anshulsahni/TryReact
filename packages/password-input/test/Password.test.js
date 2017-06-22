@@ -48,6 +48,42 @@ describe('<PasswordInput />', function() {
 
   });
 
+  describe('Show Password Button', function() {
+
+    it('should render with a show password button', function() {
+      const wrapper = shallow(<PasswordInput showPassword />);
+      expect(wrapper.find('div.show-password')).to.have.length(1);
+    });
+
+    it('should not render with a show password button', function() {
+      const wrapper = shallow(<PasswordInput />);
+      expect(wrapper.find('div.show-password')).to.have.length(0);
+    });
+
+    it('clicking show password make textbox with "type=text"', function() {
+      const wrapper = shallow(<PasswordInput showPassword />);
+      wrapper.find('button').simulate('click');
+      expect(wrapper.find('input[type="text"]')).to.have.length(1);
+    });
+
+    it('clicking show password three times make textbox with "type=text"', function() {
+      const wrapper = shallow(<PasswordInput showPassword />);
+      const showPasswordBtn = wrapper.find('button');
+      showPasswordBtn.simulate('click');
+      showPasswordBtn.simulate('click');
+      showPasswordBtn.simulate('click');
+      expect(wrapper.find('input[type="text"]')).to.have.length(1);
+    });
+
+    it('clicking show password twice should again make "type=password"', function() {
+      const wrapper = shallow(<PasswordInput showPassword />);
+      const showPasswordBtn = wrapper.find('button');
+      showPasswordBtn.simulate('doubleClick');
+      expect(wrapper.find('input[type="password"]')).to.have.length(1);
+    });
+
+  });
+
   describe('Checking password validity with different conditions', function() {
 
     describe('With list enabled', function() {
