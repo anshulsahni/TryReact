@@ -50,220 +50,223 @@ describe('<PasswordInput />', function() {
 
   describe('Checking password validity with different conditions', function() {
 
-    describe('For Min', function() {
+    describe('With list disabled', function() {
 
-      it('should return password as valid', function() {
-        const handleChange = sinon.spy();
-        const props = {
-          onChange: handleChange,
-          min: 6,
-        };
-        const wrapper = mount(<PasswordInput list={false} {...props} />);
-        const input = wrapper.find('input');
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.equal(true);
+      describe('For Min', function() {
+
+        it('should return password as valid', function() {
+          const handleChange = sinon.spy();
+          const props = {
+            onChange: handleChange,
+            min: 6,
+          };
+          const wrapper = mount(<PasswordInput list={false} {...props} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.equal(true);
+        });
+
+        it('should return password as invalid', function() {
+          const handleChange = sinon.spy();
+          const props = {
+            onChange: handleChange,
+            min: 15,
+          };
+          const wrapper = mount(<PasswordInput list={false} {...props} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.equal(false);
+        });
+
       });
 
-      it('should return password as invalid', function() {
-        const handleChange = sinon.spy();
-        const props = {
-          onChange: handleChange,
-          min: 15,
-        };
-        const wrapper = mount(<PasswordInput list={false} {...props} />);
-        const input = wrapper.find('input');
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.equal(false);
+      describe('For Max', function() {
+
+        it('should return password as valid', function() {
+          const handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput list={false}
+              onChange={handleChange}
+              max={15}
+              />
+          );
+          const input = wrapper.find('input');
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.equal(true);
+        });
+
+        it('should return password as invalid', function() {
+          const handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              max={6}
+              />
+          );
+          const input = wrapper.find('input');
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
+      });
+
+      describe('For Uppercase characters', function() {
+        var handleChange;
+        var input;
+
+        beforeEach(function() {
+          handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              uppercase
+              />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return password as valid', function() {
+          input.get(0).value = 'Password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.true;
+
+        });
+
+        it('should return password as invalid', function() {
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
+      });
+
+      describe('For lowercase characters', function() {
+        var handleChange;
+        var input;
+
+        beforeEach(function() {
+          handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              lowercase
+              />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return password as valid', function() {
+          input.get(0).value = 'PASsWORD123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.true;
+        });
+
+        it('should return password as invalid', function() {
+          input.get(0).value = 'PASSWORD123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
+      });
+
+      describe('For digits (numerical characters)', function() {
+        var handleChange;
+        var input;
+
+        beforeEach(function() {
+          handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              digits
+              />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return password as valid', function() {
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.true;
+        });
+
+        it('should return password as inavlid', function() {
+          input.get(0).value = 'password';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
+      });
+
+      describe('For noSpaces', function() {
+        var handleChange;
+        var input;
+
+        beforeEach(function() {
+          handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              noSpaces
+              />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return password as valid', function() {
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.true;
+        });
+
+        it('should return password as invalid', function() {
+          input.get(0).value = 'password 123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
+      });
+
+      describe('For symbols', function() {
+        var handleChange;
+        var input;
+
+        beforeEach(function() {
+          handleChange = sinon.spy();
+          const wrapper = mount(
+            <PasswordInput
+              list={false}
+              onChange={handleChange}
+              symbols
+              />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return password as valid', function() {
+          input.get(0).value = 'password@123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.true;
+        });
+
+        it('should return password as invalid', function() {
+          input.get(0).value = 'password123';
+          input.first().simulate('change');
+          expect(handleChange.getCall(0).args[0]).to.be.false;
+        });
+
       });
 
     });
-
-    describe('For Max', function() {
-
-      it('should return password as valid', function() {
-        const handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput list={false}
-            onChange={handleChange}
-            max={15}
-          />
-        );
-        const input = wrapper.find('input');
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.equal(true);
-      });
-
-      it('should return password as invalid', function() {
-        const handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            max={6}
-          />
-        );
-        const input = wrapper.find('input');
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
-    describe('For Uppercase characters', function() {
-      var handleChange;
-      var input;
-
-      beforeEach(function() {
-        handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            uppercase
-          />
-        );
-        input = wrapper.find('input');
-      });
-
-      it('should return password as valid', function() {
-        input.get(0).value = 'Password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.true;
-
-      });
-
-      it('should return password as invalid', function() {
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
-    describe('For lowercase characters', function() {
-      var handleChange;
-      var input;
-
-      beforeEach(function() {
-        handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            lowercase
-          />
-        );
-        input = wrapper.find('input');
-      });
-
-      it('should return password as valid', function() {
-        input.get(0).value = 'PASsWORD123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.true;
-      });
-
-      it('should return password as invalid', function() {
-        input.get(0).value = 'PASSWORD123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
-    describe('For digits (numerical characters)', function() {
-      var handleChange;
-      var input;
-
-      beforeEach(function() {
-        handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            digits
-          />
-        );
-        input = wrapper.find('input');
-      });
-
-      it('should return password as valid', function() {
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.true;
-      });
-
-      it('should return password as inavlid', function() {
-        input.get(0).value = 'password';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
-    describe('For noSpaces', function() {
-      var handleChange;
-      var input;
-
-      beforeEach(function() {
-        handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            noSpaces
-          />
-        );
-        input = wrapper.find('input');
-      });
-
-      it('should return password as valid', function() {
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.true;
-      });
-
-      it('should return password as invalid', function() {
-        input.get(0).value = 'password 123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
-    describe('For symbols', function() {
-      var handleChange;
-      var input;
-
-      beforeEach(function() {
-        handleChange = sinon.spy();
-        const wrapper = mount(
-          <PasswordInput
-            list={false}
-            onChange={handleChange}
-            symbols
-          />
-        );
-        input = wrapper.find('input');
-      });
-
-      it('should return password as valid', function() {
-        input.get(0).value = 'password@123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.true;
-      });
-
-      it('should return password as invalid', function() {
-        input.get(0).value = 'password123';
-        input.first().simulate('change');
-        expect(handleChange.getCall(0).args[0]).to.be.false;
-      });
-
-    });
-
 
   });
 
