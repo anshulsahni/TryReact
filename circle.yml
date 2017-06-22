@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   override:
-    - npm install -g lerna gulp
+    - npm install -g lerna@latest gulp
     - lerna bootstrap
 
 test:
