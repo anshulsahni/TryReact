@@ -107,8 +107,10 @@ class Password extends Component {
     const password = this.password.value;
     const list = this.props.list;
     const passwordValidity = password ? this.validation.validate(password, { list }) : getEmptyPasswordValidity(this.props);
+
+    const replaceIsMinAndIsMax = validity => split(replace(join(validity, ','), /isMax|isMin/, pat => lowerFirst(trim(pat, 'is'))), ',');
     this.setState({
-      passwordValidity,
+      passwordValidity: isArray(passwordValidity) ? replaceIsMinAndIsMax(passwordValidity) : passwordValidity,
     });
     this.props.onChange(passwordValidity, password);
   }
