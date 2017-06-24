@@ -134,7 +134,7 @@ class Password extends Component {
             }
         `}</style>
         {passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
-        <span>{validationMessages(validation)}</span>
+        <span>{validationMessages(validation, validation === 'min' ? this.props.min : this.props.max)}</span>
       </li>
     );
 
