@@ -11,6 +11,12 @@ import intersection from 'lodash.intersection';
 import pickBy from 'lodash.pickby';
 import keys from 'lodash.keys';
 import isNull from 'lodash.isnull';
+import isArray from 'lodash.isarray';
+import replace from 'lodash.replace';
+import lowerFirst from 'lodash.lowerfirst';
+import join from 'lodash.join';
+import split from 'lodash.split';
+import trim from 'lodash.trim';
 
 import applyRules from './applyRules';
 
