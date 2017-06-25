@@ -11,6 +11,8 @@ import intersection from 'lodash.intersection';
 import pickBy from 'lodash.pickby';
 import keys from 'lodash.keys';
 import isNull from 'lodash.isnull';
+import isArray from 'lodash.isarray';
+import replace from 'lodash.replace';
 
 import applyRules from './applyRules';
 
@@ -101,8 +103,15 @@ class Password extends Component {
     const password = this.password.value;
     const list = this.props.list;
     const passwordValidity = password ? this.validation.validate(password, { list }) : getEmptyPasswordValidity(this.props);
+
+    const replaceWith = {
+      isMin: 'min',
+      isMax: 'max',
+      spaces: 'noSpaces',
+    };
+    const replaceIfNeedded = validities => map(validities, validity => replace(validity, /isMax|isMin|spaces/, pat => replaceWith[pat]));
     this.setState({
-      passwordValidity,
+      passwordValidity: isArray(passwordValidity) ? replaceIfNeedded(passwordValidity) : passwordValidity,
     });
     this.props.onChange(passwordValidity, password);
   }
@@ -134,7 +143,7 @@ class Password extends Component {
             }
         `}</style>
         {passwordValidity.indexOf(validation) === -1 ? <GreenTick /> : <RedCross />}
-        <span>{validationMessages(validation)}</span>
+        <span>{validationMessages(validation, validation === 'min' ? this.props.min : this.props.max)}</span>
       </li>
     );
 
@@ -150,6 +159,7 @@ class Password extends Component {
               border: 1px solid #000;
               border-radius: 4px;
               margin-left: 15px;
+              margin-top: 30px;
               max-width: calc(100% - 15px);
               box-sizing: border-box;
             }

@@ -1,8 +1,14 @@
+machine:
+  node:
+    version: 6.11.0
+  npm:
+    version: 5.0.3
+
 dependencies:
   override:
-    - npm install
-    - ./node_modules/.bin/lerna bootstrap
+    - npm install -g lerna@latest gulp
+    - lerna bootstrap
 
 test:
   override:
-    - ./node_modules/.bin/lerna run ci-check
+    - lerna run test
