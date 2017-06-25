@@ -159,6 +159,7 @@ class Password extends Component {
               border: 1px solid #000;
               border-radius: 4px;
               margin-left: 15px;
+              margin-top: 30px;
               max-width: calc(100% - 15px);
               box-sizing: border-box;
             }
