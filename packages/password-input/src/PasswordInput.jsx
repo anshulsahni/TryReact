@@ -13,10 +13,6 @@ import keys from 'lodash.keys';
 import isNull from 'lodash.isnull';
 import isArray from 'lodash.isarray';
 import replace from 'lodash.replace';
-import lowerFirst from 'lodash.lowerfirst';
-import join from 'lodash.join';
-import split from 'lodash.split';
-import trim from 'lodash.trim';
 
 import applyRules from './applyRules';
 
@@ -108,9 +104,14 @@ class Password extends Component {
     const list = this.props.list;
     const passwordValidity = password ? this.validation.validate(password, { list }) : getEmptyPasswordValidity(this.props);
 
-    const replaceIsMinAndIsMax = validity => split(replace(join(validity, ','), /isMax|isMin/, pat => lowerFirst(trim(pat, 'is'))), ',');
+    const replaceWith = {
+      isMin: 'min',
+      isMax: 'max',
+      spaces: 'noSpaces',
+    };
+    const replaceIfNeedded = validities => map(validities, validity => replace(validity, /isMax|isMin|spaces/, pat => replaceWith[pat]));
     this.setState({
-      passwordValidity: isArray(passwordValidity) ? replaceIsMinAndIsMax(passwordValidity) : passwordValidity,
+      passwordValidity: isArray(passwordValidity) ? replaceIfNeedded(passwordValidity) : passwordValidity,
     });
     this.props.onChange(passwordValidity, password);
   }
