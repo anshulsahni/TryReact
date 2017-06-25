@@ -111,6 +111,152 @@ describe('<PasswordInput />', function() {
 
     });
 
+    describe('When list is enabled', function() {
+
+      it('list of validities should be present', function() {
+        const wrapper = mount(<PasswordInput uppercase />);
+        expect(wrapper.find('.password-validity.list')).to.have.length(1);
+      });
+
+      it('should display correct validities in list - 1', function() {
+        const wrapper = mount(<PasswordInput uppercase lowercase digits />);
+        const input = wrapper.find('input');
+        input.get(0).value = 'Password123';
+        input.first().simulate('change');
+        const actualErrors = wrapper.text();
+        const expectedErrors = "✓Should contain atleast one uppercase letter✓Should contain atleast one lowercase letter✓Should contain atleast one numeric character";
+        expect(actualErrors).to.equal(expectedErrors);
+      });
+
+      it('should display correct validities in list - 2', function() {
+        const wrapper = mount(<PasswordInput uppercase lowercase digits />);
+        const input = wrapper.find('input');
+        input.get(0).value = 'password123';
+        input.first().simulate('change');
+        const actualErrors = wrapper.text();
+        const expectedErrors = "✖Should contain atleast one uppercase letter✓Should contain atleast one lowercase letter✓Should contain atleast one numeric character";
+        expect(actualErrors).to.equal(expectedErrors);
+      });
+
+      describe('validity check for "noSpaces"', function() {
+
+        it('for invalid password', function() {
+          const wrapper = mount(<PasswordInput noSpaces />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'P a s';
+          input.first().simulate('change');
+          input.first().simulate('change');
+          const expectedErrors = '✖Should not have spaces between characters';
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+        it('for valid password', function() {
+            const wrapper = mount(<PasswordInput noSpaces />);
+            const input = wrapper.find('input');
+            input.get(0).value = 'Pas';
+            input.first().simulate('change');
+            const expectedErrors = '✓Should not have spaces between characters';
+            const actualErrors = wrapper.text();
+            expect(actualErrors).to.equal(expectedErrors);
+        });
+
+      });
+
+      describe('validity check for "min"', function() {
+
+        it('for invalid password', function() {
+          const wrapper = mount(<PasswordInput min={6} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'pas';
+          input.first().simulate('change');
+          const expectedErrors = '✖Should not be less than 6 characters';
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+        it('for valid password', function() {
+          const wrapper = mount(<PasswordInput min={6} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'password';
+          input.first().simulate('change');
+          const expectedErrors = '✓Should not be less than 6 characters';
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+      });
+
+      describe('Validity check for max', function() {
+
+        it('for invalid password', function() {
+          const wrapper = mount(<PasswordInput max={10} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'paswordpassword';
+          input.first().simulate('change');
+          const expectedErrors = '✖Should not be more than 10 characters';
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+        it('for valid password', function() {
+          const wrapper = mount(<PasswordInput max={10} />);
+          const input = wrapper.find('input');
+          input.get(0).value = 'password';
+          input.first().simulate('change');
+          const expectedErrors = '✓Should not be more than 10 characters';
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+      });
+
+      describe('Validity check with all validities and different password conditions', function() {
+        var input;
+        var wrapper;
+
+        beforeEach(function() {
+          wrapper = mount(
+            <PasswordInput
+              uppercase
+              lowercase
+              noSpaces
+              max={10}
+              symbols
+              min={6}
+              digits
+            />
+          );
+          input = wrapper.find('input');
+        });
+
+        it('should return uppercase and lowercase not fulfilled rest other done', function() {
+          input.get(0).value = '12345667@';
+          input.first().simulate('change');
+          const expectedErrors = "✖Should contain atleast one uppercase letter✖Should contain atleast one lowercase letter✓Should not have spaces between characters✓Should not be more than 10 characters✓Should have atleast one symbol✓Should not be less than 6 characters✓Should contain atleast one numeric character";
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+        it('should return everything not fulfilled except upercase and lowercase and maximum', function() {
+          input.get(0).value = 'Pa s';
+          input.first().simulate('change');
+          const expectedErrors = "✓Should contain atleast one uppercase letter✓Should contain atleast one lowercase letter✖Should not have spaces between characters✓Should not be more than 10 characters✖Should have atleast one symbol✖Should not be less than 6 characters✖Should contain atleast one numeric character";
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+
+        it('should uppercase digits unfulfilled', function() {
+          input.get(0).value = 'password';
+          input.first().simulate('change');
+          const expectedErrors = "✖Should contain atleast one uppercase letter✓Should contain atleast one lowercase letter✓Should not have spaces between characters✓Should not be more than 10 characters✖Should have atleast one symbol✓Should not be less than 6 characters✖Should contain atleast one numeric character";
+          const actualErrors = wrapper.text();
+          expect(actualErrors).to.equal(expectedErrors);
+        });
+      });
+
+    });
+
   });
 
   describe('Checking password validity with different conditions', function() {
@@ -187,7 +333,7 @@ describe('<PasswordInput />', function() {
             <PasswordInput
               onChange={handleChange}
               uppercase
-              />
+            />
           );
           input = wrapper.find('input');
         });
