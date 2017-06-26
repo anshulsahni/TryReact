@@ -226,13 +226,13 @@ class Password extends Component {
     const widthClass = showPassword ? 'with-show-password' : 'without-show-password';
     const validityClass = showValidity && !list ? 'show-validity' : 'hide-validity';
     return (
-      <div className={`${this.props.wrapperClass} ${widthClass} ${validityClass} password-input`}>
+      <div className={`${this.props.className} ${widthClass} ${validityClass} password-input`}>
         <input
           type={this.state.showPassword ? 'text' : 'password'}
           ref={this.assignPasswordInputRef}
           defaultValue={this.props.value}
           onChange={this.handleChange}
-          className={`${this.props.className} input`}
+          className={`${this.props.inputClass} input`}
           {...pickProps(omit(this.props, omittedProps))}
         />
         {showValidity && !list ? this.renderPasswordValidityWithoutList() : null }
@@ -331,17 +331,17 @@ Password.propTypes = {
    */
   showValidity: PropTypes.bool,
   /**
-   * gives the className to the root element
-   */
-  wrapperClass: PropTypes.string,
-  /**
-   * append class to input element
-   */
-  className: PropTypes.string,
-  /**
    * display `show password` button
    */
   showPassword: PropTypes.bool,
+  /**
+  * append class to input element
+  */
+  inputClass: PropTypes.string,
+  /**
+  * gives the className to the root element
+  */
+  className: PropTypes.string,
 };
 
 Password.defaultProps = {
@@ -355,7 +355,7 @@ Password.defaultProps = {
   list: true,
   showValidity: true,
   className: '',
-  wrapperClass: '',
+  inputClass: '',
   showPassword: false,
 };
 
