@@ -1,6 +1,6 @@
 # try-react-password-input
 
-[![npm version](https://badge.fury.io/js/try-react-password-input.svg)](https://badge.fury.io/js/try-react-password-input) [![CircleCI](https://circleci.com/gh/TryReact/password-input/tree/master.svg?style=shield)](https://circleci.com/gh/TryReact/password-input/tree/master)
+[![npm version](https://badge.fury.io/js/try-react-password-input.svg)](https://badge.fury.io/js/try-react-password-input)
 
 A password input component which accepts certain qualifications for password to valid as props and then returns whether password is valid or in the callback
 
