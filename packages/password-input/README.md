@@ -48,7 +48,7 @@ handleChange(passwordValid, password) {
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | value | String | <sub>_empty string_</sub> |value of password text |
-| onChange | Function | <sub>_empty funtion_</sub> | method called everytime value is changed in password input field, has passwordValidity and password value in arguments |
+| onChange | Function | <sub>_empty funtion_</sub> | method called everytime value is changed in password input field, has passwordValidity and password value in arguments (if list is true, receives array of keys as list invalidities which are spelled same as props) |
 | list | Boolean | True | specifies whether validation api should return list of failed validations or not |
 | showValidity | Boolean | True | specifies if the validity indicator needs to be shown to indicate password is valid or not (list showing all the validities if list is true else and small indicator showing password valid or not) |
 | showPassword | Boolean | False | specifies whether `show password` button needs to be shown or not |
