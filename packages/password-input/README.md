@@ -45,15 +45,14 @@ handleChange(passwordValid, password) {
 
 ## Other Props
 
-| Prop | Type | Description |
-| :--- | :--- | :--- |
-| value | String | value of password text |
-| onChange | Function | method called everytime value is changed in password input field, has passwordValidity and password value in arguments |
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| value | String | <sub>_empty string_</sub> |value of password text |
+| onChange | Function | <sub>_empty funtion_</sub> | method called everytime value is changed in password input field, has passwordValidity and password value in arguments |
+| list | Boolean | True | specifies whether validation api should return list of failed validations or not |
+| showValidity | Boolean | True | specifies if the validity indicator needs to be shown to indicate password is valid or not (list showing all the validities if list is true else and small indicator showing password valid or not) |
+| showPassword | Boolean | False | specifies whether `show password` button needs to be shown or not |
+| className | String | <sub>_empty string_</sub> | adds class to the root element |
+| inputClass | String | <sub>_empty string_</sub> | adds class to the input element |
 
-**Note** : *All the other default props such as **className, id,** etc. are accpted by default if they are not one of the props listed above such as **onChange**.*
-
-
-## ToDos
-- [x] Adding More Tests
-- [ ] Update the component with new addition to password-validator api
-- [ ] Add eslint check on test and example files
+**Note** : *All the other default props such as **id,** etc. are accpted by default if they are not one of the props listed above such as **onChange**.*
