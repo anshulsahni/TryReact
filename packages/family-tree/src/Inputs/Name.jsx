@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 const NameInput = props => (
   <div className="name-input">
-    <style jsx>
-      {/* input styles */}
-    </style>
+    <style jsx>{`
+        .name-input {
+          display: inline-block
+        }
+    `}</style>
     <input
       id={props.name}
       {...props}
