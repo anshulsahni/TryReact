@@ -6,3 +6,6 @@ build
 
 #logs
 *.log
+
+#temporary editor files
+*.swp
