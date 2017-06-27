@@ -17,9 +17,12 @@
     "password",
     "react",
     "password",
-    "validator"
+    "validator",
+    "password-validations",
+    "password-input",
+    "input"
   ],
-  "author": "Anshul Sahni",
+  "author": "Anshul Sahni <anshul_sahni@live.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/anshulsahni/TryReact/issues"
