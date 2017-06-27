@@ -8,13 +8,14 @@ const SaveButton = ({ value, ...props }) => (
         display: inline-block;
       }
     `}</style>
-    <button {...props}>
+    <button id={props.name} {...props}>
       {value}
     </button>
   </div>
 );
 
 SaveButton.propTypes = {
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
 };
 

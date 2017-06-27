@@ -8,13 +8,14 @@ const CancelButton = ({ value, ...props }) => (
         display: inline-block;
       }
     `}</style>
-    <button {...props}>
+    <button id={props.name} {...props}>
       {value}
     </button>
   </div>
 );
 
 CancelButton.propTypes = {
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
 };
 
