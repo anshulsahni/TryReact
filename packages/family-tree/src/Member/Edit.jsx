@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
+import NameInput from '../Inputs/Name';
+import CancelButton from '../Buttons/Cancel';
+import SaveButton from '../Buttons/Save';
+
 class Edit extends Component {
 
   getValue() {
@@ -18,22 +22,18 @@ class Edit extends Component {
   render() {
     return (
       <div className="edit">
-        <input
+        <NameInput
           name="name"
           type="text"
           defaultValue={this.props.name}
           ref={this.assignRef('name')}
         />
-        <input
+        <CancelButton
           name="cancel"
-          type="button"
-          value="Cancel"
           onClick={this.props.onCancel}
         />
-        <input
+        <SaveButton
           name="save"
-          type="button"
-          value="Save"
           onClick={this.props.onSave}
         />
       </div>
